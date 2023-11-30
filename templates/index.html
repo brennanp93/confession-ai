@@ -25,7 +25,7 @@
     <main class="{% if result %}grid-box{% endif %}">
       <div class="image-title">
         <img src="{{ url_for('static', filename='priest-icon.png') }}" alt="" />
-        <h1>My Child, what is your confession?</h1>
+        <h1>My child, what is your confession?</h1>
       </div>
       <form action="/" method="post" class="form">
         <div class="form-button">
@@ -44,8 +44,8 @@
       </form>
       {% if result %}
       <div class="input-result">
-        <h3>Your Description: <br />"{{input}}"</h3>
-        <h2>You might be thinking of... <br />{{result}}</h2>
+        <!-- <h3>Your Description: <br />"{{input}}"</h3> -->
+        <h2>My Child,... <br />{{result}}</h2>
         <a
           href="{{url_for('share_twitter')}}"
           target="_blank"

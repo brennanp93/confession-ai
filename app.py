@@ -13,17 +13,21 @@ def index():
     if request.method == "POST":
         description = request.form["description"].capitalize()
         response = openai.Completion.create(
-            model="text-davinci-003",
+            model="gpt-3.5-turbo-instruct",
             prompt=generate_prompt(description),
             temperature=0.7,
         )
 
+
         return redirect(url_for("index", result=response.choices[0].text, input=description))
     result = request.args.get("result")
+    print(result, "result is here <<<--")
     input = request.args.get("input")
     session['user_input'] = input
     session['output'] = result
-    return render_template("index.html", result=result, input=input)
+    return render_template("index.html", result=result, 
+                          #  input=input
+                           )
 
 
 @app.route('/share/twitter')
@@ -43,15 +47,22 @@ def clear_prompt():
 
 
 def generate_prompt(movie_description):
-    return """Help me find out the name of a movie based on a brief description. 
+    return """Forgive me, Father, for I have sinned. 
 
-Description: Movie where Leonardo Dicaprio plays a con artist.
-Movie: Catch Me If You Can. Released in 2002.
-Description: Movie where Simon Pegg fights zombies with his friend.
-Movie: Shaun of the Dead. Realsed in 2004.
-Description: Movie where a weird guy takes over a tv station in the 80's.
-Movie: UHF. Released in 1989.
-Description: Jean reno and Jon Voight are bad guys.
-Movie: Mission: Impossible. Released in 1996.
-Description: {}
-Movie:""".format(movie_description.capitalize())
+Confession: Father, forgive me, for I have sinned. It's been a month since my last confession. I lied to my friend about something important. 
+Penitent: May God bless you for coming forward. Lying is a common human weakness. Let us reflect on the importance of honesty and consider ways to amend the situation. Say three Hail Marys as a sign of your repentance.
+
+# Confession: Father, I've been struggling with anger lately. I snapped at my coworker, and I feel guilty about it.
+# Penitent: It takes courage to admit our struggles. Let us seek God's guidance to control our emotions. Pray for patience and understanding. As your penance, meditate on the Serenity Prayer.
+
+# Confession:  Father, I've been gossiping about others, and I know it's wrong.
+# Penitent: Gossiping can harm relationships and sow discord. Acknowledge the harm caused, and strive for kindness in your words. As a penance, reflect on the Golden Rule and say a prayer for those you may have affected.
+
+# Confession: Father, I've neglected my daily prayers and feel distant from God.
+# Penitent: God's love is always there for you. Reconnect through prayer, and remember that God is understanding. As your penance, spend some quiet time in prayer, expressing gratitude and seeking guidance.
+
+# Confession:  Father, I've been greedy and materialistic, placing importance on possessions rather than spiritual growth.
+# Penitent: Material temptations are common, but true fulfillment comes from spiritual nourishment. Reflect on the teachings of simplicity and generosity. As a penance, consider volunteering or making a charitable contribution.
+
+Confession:{}
+Penitent:""".format(movie_description.capitalize())
