@@ -16,33 +16,31 @@ def index():
             model="gpt-3.5-turbo-instruct",
             prompt=generate_prompt(description),
             temperature=0.7,
+            max_tokens=100,
         )
-
-
-        return redirect(url_for("index", result=response.choices[0].text, input=description))
+        return redirect(
+            url_for("index", result=response.choices[0].text, input=description)
+        )
     result = request.args.get("result")
     print(result, "result is here <<<--")
     input = request.args.get("input")
-    session['user_input'] = input
-    session['output'] = result
-    return render_template("index.html", result=result, 
-                          #  input=input
-                           )
+    session["user_input"] = input
+    session["output"] = result
+    return render_template("index.html", result=result, input=input)
 
 
-@app.route('/share/twitter')
+@app.route("/share/twitter")
 def share_twitter():
-    user_input = session['user_input']
-    output = session['output'].lstrip()
-    url = 'https://movie-finder-ai.herokuapp.com/'
+    user_input = session["user_input"]
+    output = session["output"].lstrip()
+    url = "https://movie-finder-ai.herokuapp.com/"
     text = f'Amazing! I described a movie as:\n"{user_input}" \nand the AI correctly guessed it was:\n{output} \nCan you challenge its movie guessing skills?\nTry it now at'
-    tweet_url = f'https://twitter.com/intent/tweet?url={url}&text={text}'
+    tweet_url = f"https://twitter.com/intent/tweet?url={url}&text={text}"
     return redirect(tweet_url)
 
 
 @app.route("/")
 def clear_prompt():
-
     return redirect("/")
 
 
@@ -65,4 +63,6 @@ Penitent: May God bless you for coming forward. Lying is a common human weakness
 # Penitent: Material temptations are common, but true fulfillment comes from spiritual nourishment. Reflect on the teachings of simplicity and generosity. As a penance, consider volunteering or making a charitable contribution.
 
 Confession:{}
-Penitent:""".format(movie_description.capitalize())
+Penitent:""".format(
+        movie_description.capitalize()
+    )

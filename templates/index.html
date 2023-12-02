@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>No, Really, Name That Movie, Please?</title>
+    <title>Pocket Confessional</title>
     <link
       rel="shortcut icon"
       href="{{ url_for('static', filename='priest-icon.png') }}"
@@ -32,7 +32,7 @@
           <input
             type="text"
             name="description"
-            placeholder="Enter a movie description..."
+            placeholder="What is your confession?"
             autocomplete="off"
             maxlength="70"
             required
@@ -44,18 +44,8 @@
       </form>
       {% if result %}
       <div class="input-result">
-        <!-- <h3>Your Description: <br />"{{input}}"</h3> -->
-        <h2>My Child,... <br />{{result}}</h2>
-        <a
-          href="{{url_for('share_twitter')}}"
-          target="_blank"
-          class="twitter-button"
-        >
-          <img
-            src="{{ url_for('static', filename='twitterbig.png') }}"
-            alt=""
-          />
-        </a>
+        <h3>"{{input}}"</h3>
+        <h2>{{result}}</h2>
       </div>
       {% endif %}
     </main>
